@@ -1,0 +1,54 @@
+
+plugins {
+    id 'java'
+}
+
+group 'com.hangyin.smart'
+version '0.0.1'
+description 'SmartCore mqtt plugin.'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+configurations {
+    provided
+    compile.extendsFrom provided
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    provided group: 'com.hangyin.smart', name: 'smartcore-plugin-base', version: '0.0.1'
+    provided group: 'ch.qos.logback', name: 'logback-core', version: '1.2.3'
+    provided group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3'
+    provided 'org.yaml:snakeyaml:1.26'
+    compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.10'
+    compile group: 'org.fusesource.mqtt-client', name: 'mqtt-client', version: '1.16'
+}
+
+jar {
+    manifest {
+        attributes(
+            'Manifest-Version': 1.0,
+            'Implementation-Title': project.name,
+            'Implementation-Version': version,
+            'Main-Class': 'com.demo.test.DemoService',
+            'Created-By': 'hang.yin',
+            'Description': project.description,
+            'Class-Path': configurations.compile.collect { './' + it.getName() }.sort().join(' '),
+            'Built-By': 'Gradle ' + gradle.gradleVersion,
+            'Java-Compile': targetCompatibility,
+            'Build-Jdk-Version': project.ant.properties.get('java.version'),
+            'Build-Class-Version': project.ant.properties.get('java.class.version'),
+            'SmartCore-Class': 'com.hangyin.smart.smartcore.plugin.mqtt.MQTTService'
+        )
+    }
+    from {
+        (configurations.runtime - configurations.provided).collect {
+            it.isDirectory() ? it : zipTree(it)
+        }
+    }
+}
