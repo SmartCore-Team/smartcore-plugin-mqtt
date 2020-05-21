@@ -6,9 +6,9 @@ SmartCore的MQTT插件，可以将支持MQTT协议的设备接入到SmartCore平
 ```
 connection: 'mqttConnection'
 mqtt:
-  host: 'tcp://6.0.1.1:1883'
-  username: 'admin'
-  password: '141564'
+  host: 'tcp://6.1.1.1:1883'
+  username: 'mqtt'
+  password: 'mqtt'
   clientId: 'SmartCore_mqtt_plugin'
 device:
   type: 'curtain'
@@ -21,6 +21,21 @@ device:
       isNotify: true
       getTopic: '/HassSmart/curtain_shufang/position'
       setTopic: '/HassSmart/curtain_shufang/cmnd/set_position'
+      getQos: 2
+      setQos: 2
+    led:
+      friendlyName: '灯光'
+      valueType: 'boolean'
+      readOnly: false
+      isNotify: true
+      getTopic: '/HassSmart/curtain_shufang/led'
+      getValueMap:
+        "on": true
+        "off": false
+      setTopic: '/HassSmart/curtain_shufang/set_led'
+      setValueMap:
+        true: "on":
+        false: "off"
       getQos: 2
       setQos: 2
   info:
