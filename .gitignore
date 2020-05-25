@@ -1,7 +1,6 @@
 .gradle
 .idea
 logs
-plugin
 target
 build
 gradle
