@@ -14,17 +14,19 @@ import java.util.Map;
 public class serviceTest {
 
     public static void main(String[] args) {
-        try(InputStream cfgIn = Files.newInputStream(Paths.get("config", "CC50E3CC8994.yaml"))) {
+        try(InputStream cfgIn = Files.newInputStream(Paths.get("config", "6001943c7eaa.yaml"))) {
             Map cfg = new Yaml().load(cfgIn);
-            MQTTService service = new MQTTService();
-            service.init(new HashMap<>(), (did, pid, nv, ov) -> {
+            MQTTService service1 = new MQTTService();
+            service1.init(new HashMap<>(), (did, pid, nv, ov) -> {
                 System.out.println(did + ", " + pid + ", " + nv + "," + ov);
                 return true;
-            }, "CC50E3CC8994", cfg);
-
+            }, "6001943c7eaa", cfg);
+            // service.setPropertyValue("power", true);
             System.out.println("123");
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
+
 }
